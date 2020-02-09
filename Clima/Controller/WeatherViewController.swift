@@ -19,7 +19,6 @@ class WeatherViewController: UIViewController {
         super.viewDidLoad()
         searchTextField.delegate = self
     }
-
 }
 
 extension WeatherViewController: UITextFieldDelegate {
@@ -47,6 +46,7 @@ extension WeatherViewController: UITextFieldDelegate {
             data.fetchData(cityName: city)
         }
         searchTextField.text = ""
+
     }
 
 }
