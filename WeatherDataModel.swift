@@ -25,22 +25,22 @@ struct WeatherData {
             let request = URLSession(configuration: .default)
 
             // 3. create data task
-            let task = request.dataTask(with: url, completionHandler: handle(data: urlResponse: error: ))
+            let task = request.dataTask(with: url) { (data, urlResponse, error) in
+                if let error = error {
+                    print(error)
+                    return
+                }
+
+                if let safeData = data {
+                    let dataString = String(data: safeData, encoding: .utf8)
+                    print(dataString!)
+                }
+
+            }
 
             // 4. start the task
             task.resume()
         }
     }
 
-    func handle(data: Data?, urlResponse: URLResponse?, error: Error?) -> Void {
-        if let error = error {
-            print(error)
-            return
-        }
-
-        if let safeData = data {
-            let dataString = String(data: safeData, encoding: .utf8)
-            print(dataString!)
-        }
-    }
 }
