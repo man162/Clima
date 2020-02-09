@@ -42,7 +42,11 @@ extension WeatherViewController: UITextFieldDelegate {
     }
 
     func textFieldDidEndEditing(_ textField: UITextField, reason: UITextField.DidEndEditingReason) {
-          searchTextField.text = ""
+        if let city = textField.text{
+            let data = WeatherData()
+            data.fetchData(cityName: city)
+        }
+        searchTextField.text = ""
     }
 
 }
