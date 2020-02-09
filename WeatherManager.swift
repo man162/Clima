@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct WeatherData {
+struct WeatherManager {
 
     let weatherURL = "https://api.openweathermap.org/data/2.5/weather?appid=29adba096f607f72fa2a604f157c8463&units=metric"
 
@@ -30,16 +30,22 @@ struct WeatherData {
                     print(error)
                     return
                 }
-
                 if let safeData = data {
-                    let dataString = String(data: safeData, encoding: .utf8)
-                    print(dataString!)
+                    self.parseJSONData(weatherData: safeData)
                 }
-
             }
-
             // 4. start the task
             task.resume()
+        }
+    }
+
+    func parseJSONData(weatherData: Data) {
+        let decoder = JSONDecoder()
+        do {
+       let decodedData = try decoder.decode(WeatherData.self, from: weatherData)
+            print(decodedData.weather[0].description)
+        } catch {
+            print(error)
         }
     }
 
